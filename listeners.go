@@ -44,9 +44,6 @@ func (l *Listener) Accept() (net.Conn, error) {
 		return c, nil
 	}
 	for _, cfg := range l.Configs {
-		if cfg.Subnets == nil {
-			return proxyproto.NewConn(c, cfg.Timeout), nil
-		}
 		for _, s := range cfg.Subnets {
 			if s.Contains(addr.IP) {
 				return proxyproto.NewConn(c, cfg.Timeout), nil

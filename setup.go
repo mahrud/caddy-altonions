@@ -48,6 +48,9 @@ func setup(c *caddy.Controller) error {
 				return c.ArgErr()
 			}
 		}
+		if cfg.Subnets == nil {
+			continue
+		}
 		configs = append(configs, cfg)
 		if c.NextBlock() {
 			return c.ArgErr()
