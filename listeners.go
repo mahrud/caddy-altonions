@@ -2,7 +2,6 @@ package proxyprotocol
 
 import (
 	"net"
-	"os"
 
 	proxyproto "github.com/armon/go-proxyproto"
 	"github.com/mholt/caddy"
@@ -11,24 +10,14 @@ import (
 type Configs []Config
 
 type Listener struct {
-	net.Listener
+	caddy.Listener
 	Configs []Config
 }
-type CaddyListener struct {
-	*Listener
-}
 
-func (c *CaddyListener) File() (*os.File, error) {
-	return c.Listener.Listener.(caddy.Listener).File()
-}
-
-func (c Configs) NewListener(l net.Listener) net.Listener {
+func (c Configs) NewListener(l caddy.Listener) caddy.Listener {
 	ln := &Listener{
 		Listener: l,
 		Configs:  []Config(c),
-	}
-	if _, ok := l.(caddy.Listener); ok {
-		return &CaddyListener{Listener: ln}
 	}
 	return ln
 }
