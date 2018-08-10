@@ -1,30 +1,27 @@
-# Add PROXY protocol support to caddy
+# Opportunistic Onions for caddy
 
 ## Syntax
 
 ```
-proxyprotocol *cidr* ... {
-    timeout *val*
+altonions *addr:port* ... {
+    max-age *ma*
+	persist *persist*
 }
 ```
 
-- **cidr** CIDR ranges to process PROXY headers from
-- **val** duration value (e.g. 5s, 1m)
-
-The default timeout is `5s`. Set to `0` or `none` to disable the timeout.
+- **addr:port** the onion service address
+- **ma**, integer, max-age value in seconds
+- **persist**, integer
 
 ## Examples
 
 ```
-# Enable from any source (probably don't want this in prod)
-proxyprotocol 0.0.0.0/0 ::/0
-
-# Enable from local subnet and fixed IP
-proxyprotocol 10.22.0.0/16 10.23.0.1/32
-
-# Set header timeout
-proxyprotocol 10.22.0.0/16 10.23.0.1/32 {
-    timeout 5s
+perfectoid.space:8443 {
+    tls perfectoid.pem perfectoid-key.pem
+    altonions zkiefsz3zbkg4nnl5p7r64qxugfeb7g5agz2pqwci4w7hwzfgu2gobad.onion:8443 {
+        ma 086400
+        persist 1
+    }
+    root /var/www/html/
 }
-
 ```
