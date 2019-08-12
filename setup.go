@@ -9,9 +9,9 @@ import (
 	"time"
 
 	proxyprotocol "github.com/mastercactapus/caddy-proxyprotocol"
-	"github.com/mholt/caddy"
-	"github.com/mholt/caddy/caddyhttp/header"
-	"github.com/mholt/caddy/caddyhttp/httpserver"
+	"github.com/caddyserver/caddy"
+	"github.com/caddyserver/caddy/caddyhttp/header"
+	"github.com/caddyserver/caddy/caddyhttp/httpserver"
 )
 
 type Config struct {
